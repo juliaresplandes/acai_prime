@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import { Image, KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native';
+import {Image, KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
   return (
@@ -17,6 +17,20 @@ export default function App() {
       </View>
       {/*Header */}
 
+      {/*Content*/}
+        <View style={styles.content}>
+          <View style={styles.grettingSection}>
+            <Text style={styles.grettingTitle}>Refresque seu dia!</Text>
+            <Text style={styles.grettingSubtitle}> Escolha seu açaí favorito de hoje </Text>
+          </View>
+
+          <View style={styles.feature}>
+            <Image source={require('./assets/acai-turbinado.png')}></Image>
+          </View>
+
+        </View>
+      {/*Content*/}
+
 
     </KeyboardAvoidingView>
 
@@ -31,7 +45,12 @@ const styles = StyleSheet.create({
   },
   header: {
     width: "100%",
-    paddingTop:24,
+    paddingTop:60,
+    paddingHorizontal: 24, 
+    paddingBottom: 20,
+    flexDirection: 'row',
+    justifyContent:"space-between",
+    alignItems:'center'
     
   },
 
@@ -43,8 +62,31 @@ const styles = StyleSheet.create({
   headerSubtitle: {
     fontSize: 13,
     color: "#644D6A"
+  },
+  content:{
+    paddingHorizontal:24,
+    fontSize:32,
+  },
+  grettingSection: {
+    marginTop:15,
+    marginBottom:24
+  },
+  grettingTitle: {
+    fontSize:32,
+    fontWeight:"800",
+    color:'#2C1B30',
+  },
+  grettingSubtitle:{
+    fontSize:15,
+    fontWeight:"400",
+    color:'#644D6A'
+  },
+  feature:{
+    backgroundColor:'#FFFFFF',
+    shadowColor:'#2C1B300F',
+    shadowOpacity:24,
+    elevation:3
   }
-
 
 });
 
