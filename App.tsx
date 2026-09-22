@@ -1,23 +1,30 @@
-import { Ionicons } from '@expo/vector-icons';
-import {Image, KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import { useState } from 'react';
+import { Image, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import CardAcai from './components/CardAcai';
+import Footer from './components/Footer';
+import Header from './components/Header';
 
 export default function App() {
+  const [name, setName] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleOrder = () => {
+    if (name.trim() === '') {
+      setMessage('Por favor, informe seu nome.');
+    } else {
+      setMessage(`Olá, ${name}! Seu pedido foi iniciado com sucesso.`);
+    }
+  };
+
   return (
     <KeyboardAvoidingView style={styles.container}>
+      <ScrollView>
+        {/*Header */}
+        <Header />
+        {/*Header */}
 
-      {/*Header */}
-      <View style={styles.header}>
-        <View>
-          <Text style={styles.headerTitle}>Açaí Prime</Text>
-          <Text style={styles.headerSubtitle}>O sabor puro da Amazônia</Text>
-        </View>
-        <View>
-          <Ionicons name='person' size={20} color="#2f2d2c"> </Ionicons>
-        </View>
-      </View>
-      {/*Header */}
-
-      {/*Content*/}
+        {/*Content*/}
         <View style={styles.content}>
           <View style={styles.grettingSection}>
             <Text style={styles.grettingTitle}>Refresque seu dia!</Text>
@@ -25,13 +32,54 @@ export default function App() {
           </View>
 
           <View style={styles.feature}>
-            <Image source={require('./assets/acai-turbinado.png')}></Image>
+            <Image style={styles.img} source={require('./assets/acai-turbinado.png')}></Image>
+            <View style={styles.featureTags}>
+              <Text style={styles.featureTitle}>Açaí Turbinado 500ml</Text>
+              <Text style={styles.featureTag}>MAIS PEDIDO</Text>
+            </View>
+            <Text style={styles.featureDesc}>Açaí puro batido com morango, banana, leite condensado e granola crocante</Text>
+            <View style={styles.featureTags}>
+              <Text style={styles.featurePrice}>R$ 22,90</Text>
+              <TouchableOpacity style={styles.featureButton}>
+                <Feather name="shopping-bag" size={14} color="white" />
+                <Text style={styles.featureButtonText}>Adicionar</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <Text style={styles.sectionTitle}>Nossos Copos & Tigelas</Text>
+
+          <View style={styles.card}>
+            <CardAcai img={require('./assets/acai-tradicional.png')} name='Açaí Tradicional' description='Açaí cremoso com banana e granola tradicional' price=' 14,00' />
+            <CardAcai img={require('./assets/copo-tropical.png')} name='Copo Tropical' description='Camadas de açaí, morango, kiwi e leite em pó' price=' 18,50' />
+            <CardAcai img={require('./assets/vitamina-acai.png')} name='Açaí Tradicional' description='Açaí cremoso com banana e granola tradicional' price=' 14.00' />
+            <CardAcai img={require('./assets/acai-fit.png')} name='Açaí Tradicional' description='Açaí cremoso com banana e granola tradicional' price=' 14.00' />
+          </View>
+
+          <View style={styles.orderSection}>
+            <Text style={styles.question}>Qual é o seu nome ?</Text>
+
+            <TextInput
+              style={styles.input}
+              placeholder='Digite seu nome'
+              value={name}
+              onChangeText={setName}
+            >
+            </TextInput>
+            {/* <CustomButton title='Fazer meu pedido' onPress={handleOrder} /> */}
+
+            {message !== '' && (
+              <Text style={styles.messageText}>{message}</Text>
+            )}
           </View>
 
         </View>
-      {/*Content*/}
+        {/*Content*/}
+        {/*Footer */}
+        <Footer />
+        {/*Footer */}
 
-
+      </ScrollView>
     </KeyboardAvoidingView>
 
   );
@@ -43,50 +91,129 @@ const styles = StyleSheet.create({
     backgroundColor: '#f9f9f9'
 
   },
-  header: {
-    width: "100%",
-    paddingTop:60,
-    paddingHorizontal: 24, 
-    paddingBottom: 20,
-    flexDirection: 'row',
-    justifyContent:"space-between",
-    alignItems:'center'
-    
-  },
-
-  headerTitle: {
-    fontSize: 24,
-    fontWeight: "800",
-    color: "#2C1B30"
-  },
-  headerSubtitle: {
-    fontSize: 13,
-    color: "#644D6A"
-  },
-  content:{
-    paddingHorizontal:24,
-    fontSize:32,
+  content: {
+    paddingHorizontal: 24,
+    fontSize: 32,
   },
   grettingSection: {
-    marginTop:15,
-    marginBottom:24
+    marginTop: 8,
+    marginBottom: 24
   },
   grettingTitle: {
-    fontSize:32,
-    fontWeight:"800",
-    color:'#2C1B30',
+    fontSize: 32,
+    fontWeight: "800",
+    color: '#2C1B30',
   },
-  grettingSubtitle:{
-    fontSize:15,
-    fontWeight:"400",
-    color:'#644D6A'
+  grettingSubtitle: {
+    fontSize: 15,
+    fontWeight: "400",
+    color: '#644D6A'
   },
-  feature:{
-    backgroundColor:'#FFFFFF',
-    shadowColor:'#2C1B300F',
-    shadowOpacity:24,
-    elevation:3
-  }
+  feature: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 24,
+    marginTop: 16,
+    marginBottom: 20,
+    padding: 18,
+    shadowColor: '#2C1B300F',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.05,
+    elevation: 4
+  },
+  featureTags: {
+    flexDirection: 'row',
+    justifyContent: "space-between",
+    alignItems: 'center'
+  },
+  img: {
+    width: "100%",
+    height: 185,
+    marginBottom: 16,
+    borderRadius: 16,
 
+  },
+  featureTitle: {
+    fontSize: 20,
+    fontWeight: '800',
+    color: '#2C1B30',
+  },
+  featureDesc: {
+    color: '#644D6A',
+    fontSize: 13,
+    fontWeight: "400",
+    marginTop: 8,
+    marginBottom: 8
+  },
+  featureTag: {
+    backgroundColor: '#F3E5F5',
+    color: '#7B1FA2',
+    borderRadius: 6,
+    paddingTop: 4,
+    paddingRight: 8,
+    paddingBottom: 4,
+    paddingLeft: 8,
+    width: 89,
+    height: 21,
+    fontWeight: '900',
+    fontSize: 11,
+  },
+  featurePrice: {
+    color: '#7B1FA2',
+    fontWeight: '900',
+    fontSize: 22,
+    marginTop: 14,
+  },
+  featureButton: {
+    backgroundColor: '#7B1FA2',
+    borderRadius: 20,
+    paddingTop: 8,
+    paddingRight: 16,
+    paddingBottom: 8,
+    paddingLeft: 16,
+    flexDirection: 'row',
+    justifyContent: "space-between",
+    alignItems: 'center'
+  },
+  featureButtonText: {
+    color: "#FFFFFF",
+    fontWeight: "700",
+    fontSize: 12,
+    marginLeft: 8
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: '800',
+
+  },
+  card: {
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    flexWrap: 'wrap'
+  },
+  orderSection: {
+    padding: 24,
+    backgroundColor: "#ffffff",
+    borderRadius: 24,
+    shadowColor: "#000000",
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.05,
+    elevation: 4,
+    marginTop: 10
+  },
+  question: {
+    fontSize: 16,
+    fontWeight: '800',
+    color: '#2C1B30'
+  },
+  input: {
+
+  },
+  messageText: {
+    fontSize: 16,
+    fontWeight: "800",
+    color: "#2E7D32",
+    textAlign: "center",
+    marginTop: 20
+  },
 });
 
