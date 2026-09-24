@@ -4,7 +4,7 @@ export default function Footer() {
     return (
        
         < View style = { styles.footer } >
-            <Text style={styles.footerText}>Açai Prime • O sabor autêntico da Amazônia • Júlia Resplandes</Text>
+            <Text style={styles.footerText}>Açai Prime • O sabor autêntico da Amazônia</Text>
                 </View >
     
     )
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     },
     footerText: {
         fontSize: 11,
-        color: "##6C757D",
+        color: "#6C757D",
         fontWeight: '500',
         textAlign: "center"
     }

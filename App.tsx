@@ -1,9 +1,10 @@
-import { Feather } from '@expo/vector-icons';
+import { Feather, Octicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { Image, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import CardAcai from './components/CardAcai';
 import Footer from './components/Footer';
 import Header from './components/Header';
+import CustomButton from './components/CustomButton';
 
 export default function App() {
   const [name, setName] = useState('');
@@ -13,7 +14,7 @@ export default function App() {
     if (name.trim() === '') {
       setMessage('Por favor, informe seu nome.');
     } else {
-      setMessage(`Olá, ${name}! Seu pedido foi iniciado com sucesso.`);
+      setMessage(`Olá, ${name}! Pedido iniciado com sucesso.`);
     }
   };
 
@@ -52,29 +53,41 @@ export default function App() {
           <View style={styles.card}>
             <CardAcai img={require('./assets/acai-tradicional.png')} name='Açaí Tradicional' description='Açaí cremoso com banana e granola tradicional' price=' 14,00' />
             <CardAcai img={require('./assets/copo-tropical.png')} name='Copo Tropical' description='Camadas de açaí, morango, kiwi e leite em pó' price=' 18,50' />
-            <CardAcai img={require('./assets/vitamina-acai.png')} name='Açaí Tradicional' description='Açaí cremoso com banana e granola tradicional' price=' 14.00' />
-            <CardAcai img={require('./assets/acai-fit.png')} name='Açaí Tradicional' description='Açaí cremoso com banana e granola tradicional' price=' 14.00' />
+            <CardAcai img={require('./assets/vitamina-acai.png')} name='Vitamina de Açaí' description='Bebida energética batida com guaraná e aveia' price=' 14,00' />
+            <CardAcai img={require('./assets/acai-fit.png')} name='Açaí Fit Zero' description='Zero adição de açúcar, com chia e castanhas' price=' 16,90' />
           </View>
 
           <View style={styles.orderSection}>
             <Text style={styles.question}>Qual é o seu nome ?</Text>
 
-            <TextInput
-              style={styles.input}
-              placeholder='Digite seu nome'
-              value={name}
-              onChangeText={setName}
-            >
-            </TextInput>
-            {/* <CustomButton title='Fazer meu pedido' onPress={handleOrder} /> */}
+            <View style={styles.input}>
+              <Feather name="user" size={18} color="#644D6A" />
+
+              <TextInput
+
+                placeholder='Digite seu nome'
+                value={name}
+                onChangeText={setName}
+              >
+              </TextInput>
+            </View>
+
+            <CustomButton title='Fazer meu pedido' onPress={handleOrder} />
 
             {message !== '' && (
-              <Text style={styles.messageText}>{message}</Text>
+              <View  style={styles.message}>
+                <Octicons style={styles.messageIcon} name="verified" size={20} color="green" />
+                <Text style={styles.messageText}>
+                  {message}
+                </Text>
+
+              </View>
             )}
           </View>
 
         </View>
         {/*Content*/}
+
         {/*Footer */}
         <Footer />
         {/*Footer */}
@@ -88,7 +101,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f9f9f9'
+    backgroundColor: '#FBF9FC'
 
   },
   content: {
@@ -194,8 +207,8 @@ const styles = StyleSheet.create({
     padding: 24,
     backgroundColor: "#ffffff",
     borderRadius: 24,
-    shadowColor: "#000000",
-    shadowOffset: { width: 0, height: 8 },
+    shadowColor: "#2C1B300F",
+    shadowOffset: { width: 0, height: 8},
     shadowOpacity: 0.05,
     elevation: 4,
     marginTop: 10
@@ -206,14 +219,34 @@ const styles = StyleSheet.create({
     color: '#2C1B30'
   },
   input: {
-
+    width: "100%",
+    height: 50,
+    backgroundColor: "#F1EDF4",
+    borderRadius: 16,
+    paddingHorizontal: 22,
+    marginTop: 14,
+    display: 'flex',
+    flexDirection: "row",
+    alignItems: 'center'
+  },
+  message: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: "#E8F5E9",
+    borderRadius: 12,
+    paddingHorizontal:18,
+    paddingVertical:12,
+    marginTop: 12,
   },
   messageText: {
-    fontSize: 16,
-    fontWeight: "800",
+    fontSize: 14,
+    fontWeight: "600",
     color: "#2E7D32",
     textAlign: "center",
-    marginTop: 20
   },
+  messageIcon:{
+    marginRight:2,
+  }
 });
 
